@@ -11,7 +11,7 @@ export default function Button({
   type?: "submit" | "button" | "reset" | undefined;
   loading?: boolean;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: any;
   className: string
 }) {
   const onClickButton = (e: any) => {

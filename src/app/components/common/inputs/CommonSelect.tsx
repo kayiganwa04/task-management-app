@@ -32,7 +32,7 @@ export default function CommonSelect({
       {placeholder && <option value="">Task status</option>}
       {data.map((item: any, index) => {
         return (
-          <option key={index} value={item?.label}>
+          <option key={index} value={item?.value}>
             {item.label}
           </option>
         );

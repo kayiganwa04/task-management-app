@@ -16,7 +16,7 @@ export default function CommonTextArea({
   placeholder?: string;
   required?: boolean;
   onChange?: any;
-  value?: string;
+  value: string;
   className?: string
 }) {
   return (
