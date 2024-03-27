@@ -47,6 +47,7 @@ export default function AddTask({
                   type="text"
                   name="Title"
                   id="Title"
+                  required={true}
                   placeholder="Title"
                   value={formData["Title"]}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -59,6 +60,7 @@ export default function AddTask({
                 <CommonTextArea
                   id="description"
                   rows={4}
+                  required={true}
                   value={formData["Description"]}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormData({ ...formData, "Description": e.target.value })
@@ -70,6 +72,7 @@ export default function AddTask({
                 <CommonSelect
                   id="status_selection"
                   data={TASK_STATUS}
+                  required={true}
                   value={formData["Status"]}
                   onChange={(e) =>
                     setFormData({ ...formData, "Status": e.target.value })
