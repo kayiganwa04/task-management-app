@@ -1,9 +1,21 @@
-const Home = async ({ }) => {
+"use client";
+
+import Button from "./components/common/Button";
+import AddTask from "./components/AddTask/AddTask";
+
+export default function Home() {
+  const onClick = () => {
+    console.log(">>>>>clicked")
+  }
   return (
     <div className="h-screen bg-white text-black">
-      <h1 className="text-xl sm:text-2xl font-black text-center pt-6 pb-10 sm:pb-12">
-        Pack Task Manager
-      </h1>
+      <div className="flex flex-col items-center justify-center px-8">
+        <h1 className="text-4xl font-black text-center pt-6 pb-4 sm:pb-10">
+          Pack Task Management
+        </h1>
+        <Button label="Add a new Task" onClick={onClick} className="bg-orange border-2 border-orange hover:text-orange" />
+      </div>
+      <AddTask />
       <div className="flex justify-center item-center text-center">
         Tasks will go here
       </div>
@@ -11,4 +23,3 @@ const Home = async ({ }) => {
   );
 };
 
-export default Home;
