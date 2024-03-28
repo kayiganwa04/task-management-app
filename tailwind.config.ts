@@ -17,7 +17,9 @@ const config: Config = {
         black: "#000000",
         orange: "#FF8B45",
         blue: "#A4D7F5",
-        white: "#FFFFFF"
+        white: "#FFFFFF",
+        green: "#90EE90",
+        yellow: "#FFC300"
       }
     },
   },

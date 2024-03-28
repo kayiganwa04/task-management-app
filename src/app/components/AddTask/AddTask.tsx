@@ -7,6 +7,7 @@ import CommonTextInput from "../common/inputs/CommonTextInput";
 import CommonTextArea from "../common/inputs/CommonTextAreaInput";
 import CommonSelect from "../common/inputs/CommonSelect";
 import { TASK_STATUS } from "@/app/models/constants";
+import { addTask } from "@/app/services/mongodb.service";
 
 export default function AddTask({
   isOpen,
@@ -15,14 +16,22 @@ export default function AddTask({
   isOpen: boolean,
   closeModal: () => void
 }) {
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     Title: "",
     Description: "",
+    Deadline: "",
     Status: ""
   })
-  const handleAddNewTask = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddNewTask = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true)
     e.preventDefault()
-    console.log("here is the formData", formData)
+    const response = await addTask(formData)
+    if (response !== true) {
+      // here will add a toast
+      return
+    }
+    closeModal()
   }
   return (
     <Modal isOpen={isOpen}>
@@ -56,7 +65,7 @@ export default function AddTask({
                 />
               </div>
               <div className="col-span-2">
-                <label className="block mb-2 text-sm font-medium  ">Task Description</label>
+                <label className="block mb-2 text-sm font-medium">Task Description</label>
                 <CommonTextArea
                   id="description"
                   rows={4}
@@ -64,6 +73,20 @@ export default function AddTask({
                   value={formData["Description"]}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormData({ ...formData, "Description": e.target.value })
+                  }
+                />
+              </div>
+              <div className="col-span-2">
+                <label className="block mb-2 text-sm font-medium">Deadline</label>
+                <CommonTextInput
+                  type="date"
+                  name="deadline"
+                  id="deadline"
+                  required={true}
+                  placeholder="Deadline"
+                  value={formData["Deadline"]}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setFormData({ ...formData, "Deadline": e.target.value })
                   }
                 />
               </div>
@@ -80,7 +103,7 @@ export default function AddTask({
               </div>
             </div>
             <div className="flex justify-end">
-              <Button type="submit" label="Add a new Task" className="bg-blue border-2 border-blue hover:text-blue" />
+              <Button loading={loading} type="submit" label="Add a new Task" className="bg-blue border-2 border-blue hover:text-blue" />
             </div>
           </form>
         </div>
