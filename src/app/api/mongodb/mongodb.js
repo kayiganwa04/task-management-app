@@ -6,8 +6,8 @@ export async function getTasks() {
   try {
     const client = await clientPromise;
     const db = await client.db(DB_NAME);
-    const {result} = await db.collection(DB_NAME).find({}).toArray();
-    return result
+    const data = await db.collection(DB_COLLECTION).find({}).toArray();
+    return {result: data}
   } catch(error) {
     console.error("Get Tasks Error:", error.message);
     return { error: error.message };

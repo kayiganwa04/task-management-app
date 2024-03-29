@@ -17,8 +17,8 @@ export default function TaskNavigationBar() {
         </Link>
 
         <Link
-          href="/?tasks=in_progress"
-          className={`${tasksFilter === "in_progress" && "bg-yellow"
+          href="/?tasks=onProgress"
+          className={`${tasksFilter === "onProgress" && "bg-yellow"
             } inline-block px-4 sm:px-14 py-2 rounded focus:outline-none hover:bg-yellow border-b border-slate-200 `}
         >
           In Progress
@@ -26,7 +26,7 @@ export default function TaskNavigationBar() {
 
         <Link
           href="/?tasks=completed"
-          className={`${tasksFilter === "completed" && "bg-green  "
+          className={`${tasksFilter === "completed" && "bg-green"
             } inline-block px-4 sm:px-14 py-2 rounded focus:outline-none hover:bg-green border-b border-slate-200 `}
         >
           Completed

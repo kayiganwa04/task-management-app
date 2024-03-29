@@ -2,19 +2,14 @@
 
 import Button from "./components/common/Button";
 import AddTask from "./components/AddTask/AddTask";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TaskList from "./components/TaskTable";
-import { getTasks } from "./services/mongodb.service";
+
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    const fetchTask = async () => {
-      const tasks = await getTasks()
-    }
-    fetchTask()
-  }, [])
+
   return (
     <div className="h-screen bg-white text-black">
       <div className="flex flex-col items-center justify-center px-8">

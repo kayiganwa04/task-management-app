@@ -5,7 +5,7 @@ export const TASK_STATUS = [
   },
   {
     label: "In Progress",
-    value: "inProgress",
+    value: "onProgress",
   },
   {
     label: "Completed",

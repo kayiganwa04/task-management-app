@@ -1,4 +1,4 @@
-import {getTasks, addTask} from "./mongoDb"
+import {getTasks, addTask} from "./mongodb"
 
 export async function GET(request: Request) {
   try {
