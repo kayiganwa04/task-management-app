@@ -31,7 +31,7 @@ export default function AddTask({
       // here will add a toast
       return
     }
-    closeModal()
+    window.location.reload();
   }
   return (
     <Modal isOpen={isOpen}>

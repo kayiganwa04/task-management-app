@@ -45,14 +45,14 @@ const TaskList = (() => {
     setLoading(false)
   }, [tasksFilter])
   return (
-    <div className="flex flex-col">
-      <div className="w-full md:px-28 px-10">
+    <div className="flex flex-col md:px-28 px-2">
+      <div className="w-full">
         <div className="mb-4">
           <div className="flex flex-wrap gap-2 sm:gap-6 justify-center text-sm sm:text-base font-medium text-center ">
             <div
               onClick={() => changeFilter("")}
               className={`${tasksFilter === "" && "bg-lightGray"
-                } inline-block px-4 sm:px-14 py-2 rounded focus:outline-none border-b hover:bg-lightGray border-slate-200 `}
+                } inline-block cursor-pointer px-4 sm:px-14 py-2 rounded focus:outline-none border-b hover:bg-lightGray border-slate-200 `}
             >
               All
             </div>
@@ -60,7 +60,7 @@ const TaskList = (() => {
             <div
               onClick={() => changeFilter("toDo")}
               className={`${tasksFilter === "toDo" && "bg-blue"
-                } inline-block px-4 sm:px-14 py-2 rounded focus:outline-none border-b hover:bg-blue border-slate-200 `}
+                } inline-block cursor-pointer px-4 sm:px-14 py-2 rounded focus:outline-none border-b hover:bg-blue border-slate-200 `}
             >
               To do
             </div>
@@ -68,24 +68,24 @@ const TaskList = (() => {
             <div
               onClick={() => changeFilter("onProgress")}
               className={`${tasksFilter === "onProgress" && "bg-yellow"
-                } inline-block px-4 sm:px-14 py-2 rounded focus:outline-none hover:bg-yellow border-b border-slate-200 `}
+                } inline-block cursor-pointer px-4 sm:px-14 py-2 rounded focus:outline-none hover:bg-yellow border-b border-slate-200 `}
             >
-              In Progress
+              On Progress
             </div>
 
             <div
               onClick={() => changeFilter("completed")}
               className={`${tasksFilter === "completed" && "bg-green"
-                } inline-block px-4 sm:px-14 py-2 rounded focus:outline-none hover:bg-green border-b border-slate-200 `}
+                } inline-block cursor-pointer px-4 sm:px-14 py-2 rounded focus:outline-none hover:bg-green border-b border-slate-200 `}
             >
               Completed
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2 px-4 py-5 max-h-[600px] overflow-auto">
+      <div className="flex flex-col gap-2  py-5 max-h-[600px] overflow-auto">
         {
-          loading && <LoadingModal isOpen={loading} />
+          loading && <span>Loading...</span>
         }
         {tasks?.map((task: any, index: number) => (
           <TaskCard
@@ -98,8 +98,6 @@ const TaskList = (() => {
         ))}
       </div>
     </div>
-
-
   );
 });
 
