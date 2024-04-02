@@ -55,8 +55,6 @@ export async function editTask(body: any) {
 
 export async function deleteTask(taskId: string) {
   try {
-    console.log(">>>>>taskId", taskId)
-    // Find the task by its ID and delete it
     const deletedTask = await Task.findByIdAndDelete(taskId);
 
     if (!deletedTask) {

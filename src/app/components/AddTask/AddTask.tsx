@@ -9,6 +9,7 @@ import CommonSelect from "../common/inputs/CommonSelect";
 import { TASK_STATUS } from "@/app/models/constants";
 import { addTask, getTaskById, editTask } from "@/app/services/tasks.service";
 import CloseSvg from "@/app/assets/svgs/CloseSvg";
+import { toast } from "react-toastify";
 
 export default function AddTask({
   isOpen,
@@ -26,6 +27,15 @@ export default function AddTask({
     deadline: "",
     status: ""
   })
+  const resetStates = () => {
+    setFormData({
+      title: "",
+      description: "",
+      deadline: "",
+      status: ""
+    });
+    setLoading(false)
+  }
   useEffect(() => {
     if (!taskId) {
       return
@@ -44,20 +54,26 @@ export default function AddTask({
     e.preventDefault()
     const response = await addTask(formData)
     if (response !== true) {
-      // here will add a toast
+      toast.error('Fail to add task')
       return
     }
-    window.location.reload();
+    toast.success('Task added successfully')
+    e.target.form?.reset();
+    resetStates();
+    closeModal()
   }
 
   const handleEditTask = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoading(true)
     const response = await editTask(taskId, formData)
     if (response !== true) {
-      // here will add a toast
+      toast.error('Fail to edit task')
       return
     }
-    window.location.reload();
+    toast.success('Task edited successfully')
+    e.target.form?.reset();
+    resetStates();
+    closeModal()
   }
   return (
     <Modal isOpen={isOpen}>
@@ -78,7 +94,7 @@ export default function AddTask({
           <form className="p-4 md:p-5" onSubmit={(e: any) => taskId !== "" ? handleEditTask(e) : handleAddNewTask(e)}>
             <div className="grid gap-4 mb-4 grid-cols-2">
               <div className="col-span-2">
-                <label className="block mb-2 text-sm font-medium">Title</label>
+                <label className="block mb-2 text-sm font-medium text-left">Title</label>
                 <CommonTextInput
                   type="text"
                   name="Title"
@@ -92,7 +108,7 @@ export default function AddTask({
                 />
               </div>
               <div className="col-span-2">
-                <label className="block mb-2 text-sm font-medium">Task Description</label>
+                <label className="block mb-2 text-sm font-medium text-left">Task Description</label>
                 <CommonTextArea
                   id="description"
                   rows={4}
@@ -104,7 +120,7 @@ export default function AddTask({
                 />
               </div>
               <div className="col-span-2">
-                <label className="block mb-2 text-sm font-medium">Deadline</label>
+                <label className="block mb-2 text-sm font-medium text-left">Deadline</label>
                 <CommonTextInput
                   type="date"
                   name="deadline"
@@ -118,7 +134,7 @@ export default function AddTask({
                 />
               </div>
               <div className="col-span-2">
-                <label className="block mb-2 text-sm font-medium">Status</label>
+                <label className="block mb-2 text-sm font-medium text-left">Status</label>
                 <CommonSelect
                   id="status_selection"
                   data={TASK_STATUS}

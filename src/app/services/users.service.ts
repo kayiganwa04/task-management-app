@@ -35,6 +35,7 @@ export async function loginUser(user: UserType) {
     if (res === false) {
       return false;
     }
+    localStorage.setItem("token", res)
     return res;
   } catch (error) {
     console.error(error);

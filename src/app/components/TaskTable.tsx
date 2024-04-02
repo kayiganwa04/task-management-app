@@ -5,14 +5,18 @@ import { useEffect, useState } from "react";
 import TaskCard from "./cards/TaskCard";
 import { TaskType } from "../models/task";
 
-const TaskList = (() => {
-  const [tasks, setTasks] = useState([])
+const TaskList = (({ query }: { query: string }) => {
+  const [tasks, setTasks] = useState<TaskType[]>([])
   const [loading, setLoading] = useState(false)
   const [tasksFilter, setTasksFilter] = useState("")
 
   const changeFilter = (status: string) => {
     setTasksFilter(status);
   };
+
+  const searchFilter = () => {
+    return tasks.filter((e: TaskType) => e.title.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -42,7 +46,7 @@ const TaskList = (() => {
     setLoading(false)
   }, [tasksFilter])
   return (
-    <div className="flex flex-col md:px-28 px-2">
+    <div className="flex flex-col md:px-10 px-2">
       <div className="w-full">
         <div className="mb-4">
           <div className="flex flex-wrap gap-2 sm:gap-6 justify-center text-sm sm:text-base font-medium text-center ">
@@ -80,14 +84,14 @@ const TaskList = (() => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2  py-5 max-h-[600px] overflow-auto">
+      <div className="grid grid-cols-2 gap-2  py-5">
         {
           loading && <span>Loading...</span>
         }
         {
-          tasks?.length === 0 && <span>No tasks added yet.</span>
+          searchFilter()?.length === 0 && <span>No tasks added yet.</span>
         }
-        {tasks?.map((task: any, index: number) => (
+        {searchFilter()?.map((task: any, index: number) => (
           <TaskCard
             key={index}
             id={task._id}

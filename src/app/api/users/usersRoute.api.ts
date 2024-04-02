@@ -7,6 +7,15 @@ import generateToken from "../jwt/tokenGenerator"
 export async function registerUser(user: UserType) {
   try {
     const { name, email, password } = user
+
+    const res = await User.findOne({ email });
+
+      if (res) {
+        return res.status(404).json({
+          error: "User exists",
+        });
+      }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     await connectMongoDB();
     await User.create({ name, email, password: hashedPassword });
@@ -36,8 +45,7 @@ export async function loginUser(user: UserType) {
         });
       }
       const token = await generateToken({ _id: res._id, name: res.name, email: res.email });
-      console.log(">>>>>>token", token)
-      return res;
+      return token;
   } catch(error: any) {
     console.error("Error while creating user:", error.message);
     return false;

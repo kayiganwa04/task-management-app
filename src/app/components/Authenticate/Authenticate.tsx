@@ -5,6 +5,7 @@ import CommonTextInput from "../common/inputs/CommonTextInput";
 import Modal from "../common/modal";
 import CloseSvg from "@/app/assets/svgs/CloseSvg";
 import { registerUser, loginUser } from "@/app/services/users.service";
+import { toast } from "react-toastify";
 
 export default function Login({
   isOpen,
@@ -23,12 +24,22 @@ export default function Login({
   const handleAddNewUser = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const res = await registerUser(formData)
-    console.log(">>>>>>>>>res", res)
+    if (!res) {
+      toast.error('User exists')
+      return
+    }
+    toast.success('Register successfully')
+    setIsLogin(true);
   }
   const handleLoginUser = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const res = await loginUser(formData)
-    console.log(">>>>>>>>>res", res)
+    if (!res) {
+      toast.error('Invalid credentials')
+      return
+    }
+    toast.success('Logged in successfully')
+    closeModal()
   }
   return (
     <Modal isOpen={isOpen}>
