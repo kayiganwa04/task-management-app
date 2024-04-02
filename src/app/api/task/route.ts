@@ -1,4 +1,4 @@
-import {getTasks, addTask} from "./mongodb"
+import {getTasks, addTask} from "./tasksRoute.api"
 
 export async function GET(request: Request) {
   try {

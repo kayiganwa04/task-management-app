@@ -1,12 +1,9 @@
 "use client";
 
-import TaskNavigationBar from "./navbar/TaskNavigationBar";
-import { getTasks } from "../services/mongodb.service";
+import { getTasks } from "../services/tasks.service";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import TaskCard from "./cards/TaskCard";
-import LoadingModal from "./Loading";
-import { Task } from "../models/task";
+import { TaskType } from "../models/task";
 
 const TaskList = (() => {
   const [tasks, setTasks] = useState([])
@@ -23,19 +20,19 @@ const TaskList = (() => {
       const tasks = await getTasks()
       if (tasksFilter === "toDo") {
         setTasks(tasks.filter(
-          (task: Task) => task.Status === "toDo"
+          (task: TaskType) => task.status === "toDo"
         ))
         return
       }
       if (tasksFilter === "onProgress") {
         setTasks(tasks.filter(
-          (task: Task) => task.Status === "onProgress"
+          (task: TaskType) => task.status === "onProgress"
         ))
         return
       }
       if (tasksFilter === "completed") {
         setTasks(tasks.filter(
-          (task: Task) => task.Status === "completed"
+          (task: TaskType) => task.status === "completed"
         ))
         return
       }
@@ -87,13 +84,16 @@ const TaskList = (() => {
         {
           loading && <span>Loading...</span>
         }
+        {
+          tasks.length === 0 && <span>No tasks added yet.</span>
+        }
         {tasks?.map((task: any, index: number) => (
           <TaskCard
             key={index}
             id={task._id}
-            title={task.Title}
-            description={task.Description}
-            status={task.Status}
+            title={task.title}
+            description={task.description}
+            status={task.status}
           />
         ))}
       </div>

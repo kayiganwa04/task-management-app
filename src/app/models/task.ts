@@ -1,6 +1,6 @@
-export type Task = {
-  Title: string;
-  Description: string;
-  Deadline: string;
-  Status: string;
+export type TaskType = {
+  title: string;
+  description: string;
+  deadline: string;
+  status: string;
 };

@@ -1,8 +1,8 @@
-import { Task } from "../models/task";
+import { TaskType } from "../models/task";
 
-export async function addTask(task: Task) {
+export async function addTask(task: TaskType) {
   try {
-    const response = await fetch("/api/mongodb", {
+    const response = await fetch("/api/task", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export async function addTask(task: Task) {
 export async function getTasks() {
   try {
     const response = await fetch(
-      "/api/mongodb"
+      "/api/task"
     );
 
     const json = await response.json();

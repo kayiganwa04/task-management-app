@@ -4,7 +4,7 @@ import Button from "./components/common/Button";
 import AddTask from "./components/AddTask/AddTask";
 import { useState } from "react";
 import TaskList from "./components/TaskTable";
-
+import Authenticate from "./components/Authenticate/Authenticate";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false)
@@ -12,9 +12,10 @@ export default function Home() {
 
   return (
     <div className="h-screen bg-white text-black">
+      <Authenticate isOpen={false} closeModal={() => setIsOpen(false)} />
       <div className="flex flex-col items-center justify-center px-8">
         <h1 className="text-4xl font-black text-center pt-6 pb-4 sm:pb-10">
-          Pack Task Management
+          Task Management App
         </h1>
         <Button label="Add a new Task" onClick={() => setIsOpen(true)} className="bg-orange border-2 border-orange hover:text-orange" />
       </div>

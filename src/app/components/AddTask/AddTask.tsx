@@ -7,7 +7,8 @@ import CommonTextInput from "../common/inputs/CommonTextInput";
 import CommonTextArea from "../common/inputs/CommonTextAreaInput";
 import CommonSelect from "../common/inputs/CommonSelect";
 import { TASK_STATUS } from "@/app/models/constants";
-import { addTask } from "@/app/services/mongodb.service";
+import { addTask } from "@/app/services/tasks.service";
+import CloseSvg from "@/app/assets/svgs/CloseSvg";
 
 export default function AddTask({
   isOpen,
@@ -18,10 +19,10 @@ export default function AddTask({
 }) {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
-    Title: "",
-    Description: "",
-    Deadline: "",
-    Status: ""
+    title: "",
+    description: "",
+    deadline: "",
+    status: ""
   })
   const handleAddNewTask = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoading(true)
@@ -41,10 +42,8 @@ export default function AddTask({
             <h3 className="text-lg font-semibold">
               Create New Task
             </h3>
-            <button type="button" onClick={closeModal} className="text-gray-400 bg-transparent hover:bg-gray-200 hover: rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
-              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-              </svg>
+            <button type="button" onClick={closeModal} className="text-gray-400 bg-transparent hover:bg-blue rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+              <CloseSvg />
               <span className="sr-only">Close modal</span>
             </button>
           </div>
@@ -58,9 +57,9 @@ export default function AddTask({
                   id="Title"
                   required={true}
                   placeholder="Title"
-                  value={formData["Title"]}
+                  value={formData["title"]}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setFormData({ ...formData, "Title": e.target.value })
+                    setFormData({ ...formData, "title": e.target.value })
                   }
                 />
               </div>
@@ -70,9 +69,9 @@ export default function AddTask({
                   id="description"
                   rows={4}
                   required={true}
-                  value={formData["Description"]}
+                  value={formData["description"]}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setFormData({ ...formData, "Description": e.target.value })
+                    setFormData({ ...formData, "description": e.target.value })
                   }
                 />
               </div>
@@ -84,9 +83,9 @@ export default function AddTask({
                   id="deadline"
                   required={true}
                   placeholder="Deadline"
-                  value={formData["Deadline"]}
+                  value={formData["deadline"]}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setFormData({ ...formData, "Deadline": e.target.value })
+                    setFormData({ ...formData, "deadline": e.target.value })
                   }
                 />
               </div>
@@ -96,9 +95,9 @@ export default function AddTask({
                   id="status_selection"
                   data={TASK_STATUS}
                   required={true}
-                  value={formData["Status"]}
+                  value={formData["status"]}
                   onChange={(e) =>
-                    setFormData({ ...formData, "Status": e.target.value })
+                    setFormData({ ...formData, "status": e.target.value })
                   } />
               </div>
             </div>

@@ -12,3 +12,5 @@ export const TASK_STATUS = [
     value: "completed",
   },
 ];
+
+export const DATABASE_NAME = "tasks"
