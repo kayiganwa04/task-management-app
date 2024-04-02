@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div className="h-screen bg-white text-black">
-      <Authenticate isOpen={false} closeModal={() => setIsOpen(false)} />
+      <Authenticate isOpen={true} closeModal={() => setIsOpen(false)} />
       <div className="flex flex-col items-center justify-center px-8">
         <h1 className="text-4xl font-black text-center pt-6 pb-4 sm:pb-10">
           Task Management App
