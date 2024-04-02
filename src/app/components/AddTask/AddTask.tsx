@@ -1,21 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../common/Button";
 import Modal from "../common/modal";
 import CommonTextInput from "../common/inputs/CommonTextInput";
 import CommonTextArea from "../common/inputs/CommonTextAreaInput";
 import CommonSelect from "../common/inputs/CommonSelect";
 import { TASK_STATUS } from "@/app/models/constants";
-import { addTask } from "@/app/services/tasks.service";
+import { addTask, getTaskById, editTask } from "@/app/services/tasks.service";
 import CloseSvg from "@/app/assets/svgs/CloseSvg";
 
 export default function AddTask({
   isOpen,
-  closeModal
+  closeModal,
+  taskId,
 }: {
   isOpen: boolean,
-  closeModal: () => void
+  closeModal: () => void,
+  taskId?: string
 }) {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -24,10 +26,33 @@ export default function AddTask({
     deadline: "",
     status: ""
   })
+  useEffect(() => {
+    if (!taskId) {
+      return
+    }
+    const getTaskDetails = async () => {
+      const task = await getTaskById(taskId)
+      const { title, description, status, deadline } = task
+      setFormData(
+        { ...formData, "title": title, "description": description, "status": status, "deadline": deadline })
+    }
+    getTaskDetails()
+  }, [taskId])
+
   const handleAddNewTask = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoading(true)
     e.preventDefault()
     const response = await addTask(formData)
+    if (response !== true) {
+      // here will add a toast
+      return
+    }
+    window.location.reload();
+  }
+
+  const handleEditTask = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true)
+    const response = await editTask(taskId, formData)
     if (response !== true) {
       // here will add a toast
       return
@@ -40,14 +65,17 @@ export default function AddTask({
         <div className="relative bg-white rounded-lg shadow text-black">
           <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
             <h3 className="text-lg font-semibold">
-              Create New Task
+              {
+                taskId !== "" ? "Edit Task" : "Create New Task"
+              }
+
             </h3>
             <button type="button" onClick={closeModal} className="text-gray-400 bg-transparent hover:bg-blue rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
               <CloseSvg />
               <span className="sr-only">Close modal</span>
             </button>
           </div>
-          <form className="p-4 md:p-5" onSubmit={(e: any) => handleAddNewTask(e)}>
+          <form className="p-4 md:p-5" onSubmit={(e: any) => taskId !== "" ? handleEditTask(e) : handleAddNewTask(e)}>
             <div className="grid gap-4 mb-4 grid-cols-2">
               <div className="col-span-2">
                 <label className="block mb-2 text-sm font-medium">Title</label>
@@ -102,7 +130,7 @@ export default function AddTask({
               </div>
             </div>
             <div className="flex justify-end">
-              <Button loading={loading} type="submit" label="Add a new Task" className="bg-blue border-2 border-blue hover:text-blue" />
+              <Button loading={loading} type="submit" label={taskId !== "" ? "Edit Task" : "Add a new Task"} className="bg-blue border-2 border-blue hover:text-blue" />
             </div>
           </form>
         </div>

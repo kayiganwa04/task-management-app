@@ -5,9 +5,8 @@ export async function POST(request: Request) {
     if (request.headers.get("Content-Type") !== "application/json") {
       throw new Error("Invalid Content-Type");
     }
-    const {user, flag } = await request.json();
-
-    const config: any = {
+      const {user, flag } = await request.json();
+      const config: any = {
         register: () => registerUser(user),
         login: () => loginUser(user),
       };

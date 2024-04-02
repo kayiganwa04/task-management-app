@@ -85,7 +85,7 @@ const TaskList = (() => {
           loading && <span>Loading...</span>
         }
         {
-          tasks.length === 0 && <span>No tasks added yet.</span>
+          tasks?.length === 0 && <span>No tasks added yet.</span>
         }
         {tasks?.map((task: any, index: number) => (
           <TaskCard

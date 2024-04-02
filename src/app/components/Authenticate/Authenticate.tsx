@@ -4,7 +4,7 @@ import Button from "../common/Button";
 import CommonTextInput from "../common/inputs/CommonTextInput";
 import Modal from "../common/modal";
 import CloseSvg from "@/app/assets/svgs/CloseSvg";
-import { registerUser } from "@/app/services/users.service";
+import { registerUser, loginUser } from "@/app/services/users.service";
 
 export default function Login({
   isOpen,
@@ -25,6 +25,11 @@ export default function Login({
     const res = await registerUser(formData)
     console.log(">>>>>>>>>res", res)
   }
+  const handleLoginUser = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const res = await loginUser(formData)
+    console.log(">>>>>>>>>res", res)
+  }
   return (
     <Modal isOpen={isOpen}>
       <div className="relative p-4 w-full max-w-md max-h-full">
@@ -35,12 +40,9 @@ export default function Login({
                 isLogin ? "Sign in" : "Register"
               }
             </h3>
-            <button type="button" onClick={() => closeModal()} className="end-2.5 text-gray-400 bg-transparent hover:bg-blue hover:rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
-              <CloseSvg />
-            </button>
           </div>
           <div className="p-4 md:p-5">
-            <form className="space-y-4" onSubmit={(e: any) => handleAddNewUser(e)}>
+            <form className="space-y-4" onSubmit={(e: any) => !isLogin ? handleAddNewUser(e) : handleLoginUser(e)}>
               {
                 !isLogin && <div>
                   <label className="block mb-2 text-sm font-medium ">Name</label>
