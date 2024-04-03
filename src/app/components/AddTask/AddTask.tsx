@@ -58,6 +58,7 @@ export default function AddTask({
       return
     }
     toast.success('Task added successfully')
+    window.location.reload();
     e.target.form?.reset();
     resetStates();
     closeModal()
