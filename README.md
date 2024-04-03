@@ -1,6 +1,6 @@
 # Frontend Readme
 
-This a task management app for pack
+This a task management app challenge perfomed by me Eddy Kayiganwa
 
 ### Set Up
 
@@ -12,21 +12,16 @@ This a task management app for pack
 
 ## Deployment
 
-Notes for deployment, or brief about the pipeline configurations
+this application is deployed on netlify, it's automated when never new changes are pushed the main
 
-URL of the existing environments
+### Stack && Language
 
-### Stack
-
-What main libraries are used, with a link to the documentation? (I'm not talking about all the dependencies, but I am talking about the most important 3rd parties)
+These are the main stack and languages used 
 
 - Tailwind
-- Form Validation
-- Router
-- Toasts and warnings
-
-### File Structure
-
+- next js
+- typescript
+- react toastify
 
 ### IU Components
 
@@ -35,16 +30,18 @@ Which are the reusable common components, We don't want buttons, cards, or IU to
 Which is the color code? 
 
 Components
- - Booking
- - common
- - modal
- - sidebar
+ - Input
+ - Modal
+ - Button
+ - Loader
+
+ ### Functionality Include
+ - Authentication (login and register)
+ - CRUD for task
+ - Filter functionality
 
 ### Env variables
 
-
-### Application state
-
-What information do we have in the application state or context (Which is shared with all the applications)
-
-For example User login information [Local Storage]
+- MONGODB_URI: this one is generated from the mongodb connection
+- NODE_ENV: it's set according to the state of app (production or development)
+- JWT_SECRET: set accordingly

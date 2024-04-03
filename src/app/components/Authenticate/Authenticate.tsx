@@ -16,29 +16,36 @@ export default function Login({
 }
 ) {
   const [isLogin, setIsLogin] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: ""
   })
   const handleAddNewUser = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true)
     e.preventDefault()
     const res = await registerUser(formData)
     if (!res) {
+      setLoading(false)
       toast.error('User exists')
       return
     }
     toast.success('Register successfully')
     setIsLogin(true);
+    setLoading(false)
   }
   const handleLoginUser = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true)
     e.preventDefault()
     const res = await loginUser(formData)
     if (!res) {
+      setLoading(false)
       toast.error('Invalid credentials')
       return
     }
     toast.success('Logged in successfully')
+    setLoading(false)
     closeModal()
   }
   return (
@@ -95,9 +102,17 @@ export default function Login({
                   }
                 />
               </div>
-              <Button label={
-                isLogin ? "Sign in" : "Register"
-              } type="submit" className="w-full bg-blue border-2 border-blue hover:text-blue" />
+              {
+                loading ?
+                  <Button label={"Processing..."} type="submit" className="w-full bg-blue border-2 border-blue hover:text-blue"
+                  />
+                  :
+                  <Button label={
+                    isLogin ? "Sign in" : "Register"
+                  } type="submit" className="w-full bg-blue border-2 border-blue hover:text-blue"
+                  />
+
+              }
               <div className="text-sm font-medium text-gray-500 ">
                 {
                   isLogin ? "Not registered?" : "Already registered?"
